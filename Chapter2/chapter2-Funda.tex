@@ -1,41 +1,201 @@
-\chapter{Theory and Fundamentals of Analog to Digital converter}
+\chapter{System Theory and Design Fundamentals}
 
-Every chapter should start with an introduction paragraph. This paragraph should brief about the flow of the chapter. This introduction can be limited within 4 to 5 sentences. The chapter heading should be appropriately modified (a sample heading is shown for this chapter). But don't start the introduction paragraph in the chapters 2 to end with "This chapter deals with....". Instead you should bring in the highlights of the chapter in the introduction paragraph.
+The proposed autonomous border surveillance system integrates multiple engineering domains including sensing, embedded control, wireless communication, and identification systems. The effective functioning of such a system depends on a clear understanding of the underlying theoretical principles governing each subsystem. This chapter elaborates on the fundamental concepts required for the design and development of the system, including sensing techniques, actuator control mechanisms, communication protocols, and embedded system architecture. These concepts collectively form the backbone of the system and enable reliable and autonomous operation.
 
-\section{Contents of this chapter}
+\section{Ultrasonic Sensing Fundamentals}
 
-This chapter should discuss about the prerequisite learnings before the execution of the project. Organise and elaborate the theory and necessary fundamentals required for the execution of the project. You can use \verb|\subsections| and \verb|subsubsections| in this chapter.
-\section{Contents of this chapter}
-If a specific programming language is required for the project, a section can be allotted in this chapter to discuss it. 
-\section{Contents of this chapter}
-Tools used could be another possible section to discuss about the software tools used in the work. 
-\section{Contents of this chapter}
-The details in this chapter can be added in consultation with the project guide. For an internship based projects, subsections can be modified accordingly. 
+Ultrasonic sensors are widely used for distance measurement based on the principle of sound wave reflection. These sensors operate by transmitting high-frequency sound waves, typically above the audible range of humans, and measuring the time taken for the reflected waves to return after hitting an object. The HC-SR04 ultrasonic sensor used in this project is a popular choice due to its simplicity, accuracy, and cost-effectiveness.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{figure/2.2.jpg}
+\caption{Working principle of ultrasonic sensor for distance measurement}
+\label{fig:ultrasonic}
+\end{figure}
+
+The working of the ultrasonic sensor is based on the time-of-flight principle. When a trigger signal is applied, the sensor emits a burst of ultrasonic waves. These waves travel through the medium (air) and are reflected back when they encounter an object. The sensor then measures the time interval between transmission and reception of the signal, which is used to calculate the distance.
+
+The distance is calculated using the formula:
+
+\[
+\text{Distance} = \frac{v \times t}{2}
+\]
+
+where:
+\begin{itemize}
+\item $v$ is the speed of sound (approximately 343 m/s)
+\item $t$ is the time taken for the echo signal
+\end{itemize}
+
+In embedded implementations, this equation is simplified for convenience as:
+
+\[
+\text{Distance (cm)} = \text{Time} \times 0.017
+\]
+
+Ultrasonic sensing is particularly useful in short-range applications due to its reliability and independence from lighting conditions. However, its performance may be affected by environmental factors such as temperature, humidity, and surface properties of the object.
+
+\subsection{Working Principle}
+
+The operation of the ultrasonic sensor involves a sequence of steps. Initially, a trigger pulse of approximately 10 microseconds is sent to the sensor. This causes the sensor to emit ultrasonic waves. These waves propagate through the air and reflect back upon encountering an obstacle. The echo pin remains high for the duration of the round-trip time of the signal. By measuring this duration using a timer, the distance to the object can be calculated accurately.
+
+\section{Servo Motor Control}
+
+Servo motors are electromechanical devices used for precise control of angular position. Unlike conventional DC motors, servo motors operate using a feedback mechanism that ensures accurate positioning. In the proposed system, two servo motors are used: one for horizontal scanning (pan motion) and another for vertical alignment (tilt motion).
+
+The use of servo motors allows the system to dynamically scan the environment and accurately orient the laser towards the detected target. This capability is essential for achieving precise targeting in surveillance applications.
+
+Servo motors are controlled using Pulse Width Modulation (PWM), where the width of the pulse determines the angular position of the motor shaft.
+
+\subsection{PWM Theory}
+
+PWM is a technique used to encode analog control signals in a digital format. In servo motors, the angle of rotation is determined by the duration of the high pulse within a fixed time period. Typically, the PWM signal has a frequency of 50 Hz, corresponding to a period of 20 milliseconds.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{figure/2.3.jpg}
+\caption{PWM signal representation for controlling servo motor angles}
+\label{fig:pwm}
+\end{figure}
+
+The relationship between pulse width and angle is approximately linear:
+
+\begin{itemize}
+\item 0° corresponds to a pulse width of 0.5 ms
+\item 90° corresponds to a pulse width of 1.5 ms
+\item 180° corresponds to a pulse width of 2.5 ms
+\end{itemize}
+
+By varying the pulse width within this range, the servo motor can be positioned at any desired angle. Smooth motion can be achieved by gradually varying the PWM signal.
+
+\section{Geometric Targeting Principle}
+
+Accurate targeting of the detected object requires the application of geometric principles. Since the ultrasonic sensor and laser module are mounted at different positions, it is necessary to compute the correct angle for the laser based on the detected distance and angle.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{figure/2.4.jpg}
+\caption{Geometric representation used for target angle calculation}
+\label{fig:geometry}
+\end{figure}
+
+The system uses trigonometric relationships, specifically the cosine rule, to determine the required angle. By considering the relative positions of the sensor, target, and laser, a triangle is formed, and the unknown parameters can be calculated.
+
+Using the cosine rule:
+
+\[
+b = \sqrt{a^2 + c^2 - 2ac \cos(i)}
+\]
+
+\[
+\cos(B) = \frac{a^2 + b^2 - c^2}{2ab}
+\]
+
+\[
+B = \cos^{-1}(\cdot)
+\]
+
+These equations enable the system to compute the exact orientation required for the laser to align with the detected object. This approach ensures high accuracy in targeting and demonstrates the application of mathematical concepts in embedded systems.
+
+\section{RFID Identification System}
+
+Radio Frequency Identification (RFID) is a wireless technology used for automatic identification of objects and individuals. It consists of two main components: a tag and a reader. The tag contains a unique identification number, while the reader is responsible for detecting and decoding this information.
+
+In the proposed system, RFID is used to differentiate between authorized and unauthorized entities. This adds an additional layer of intelligence to the system, reducing false alarms and improving decision-making.
+
+\subsection{Working Principle}
+
+The RFID reader generates an electromagnetic field that activates nearby tags. Once activated, the tag transmits its unique identification data back to the reader. The microcontroller then compares this data with stored values to determine whether the entity is authorized.
+
+RFID systems are advantageous due to their contactless operation, fast response time, and reliability. However, their range is limited, which is an important consideration in system design.
+
+\section{LoRa Communication Technology}
+
+LoRa (Long Range) is a wireless communication technology designed for low-power, long-range applications. It is particularly suitable for IoT and remote monitoring systems where conventional communication methods may not be effective.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{figure/2.5.jpg}
+\caption{LoRa-based long-range communication between transmitter and receiver}
+\label{fig:lora}
+\end{figure}
+
+LoRa uses a modulation technique known as Chirp Spread Spectrum (CSS), which provides high resistance to interference and enables communication over long distances.
+
+\subsection{Key Features}
+
+\begin{itemize}
+\item Long communication range (up to several kilometers)
+\item Low power consumption
+\item High interference immunity
+\end{itemize}
+
+\subsection{Parameters Used}
+
+\begin{itemize}
+\item Frequency: 433 MHz
+\item Bandwidth: 125 kHz
+\item Spreading Factor: SF7
+\item Coding Rate: 4/5
+\end{itemize}
+
+The choice of these parameters affects the trade-off between data rate, range, and power consumption. LoRa is highly suitable for surveillance systems where reliable long-distance communication is required.
+
+\section{Embedded System Platform}
+
+The system is built using an STM32 microcontroller, which serves as the central processing unit. The microcontroller is responsible for coordinating all system operations, including sensor data acquisition, signal processing, actuator control, and communication.
+
+\subsection{Key Features}
+
+\begin{itemize}
+\item High processing capability
+\item Multiple communication interfaces (UART, SPI, GPIO)
+\item Hardware timers for precise control
+\end{itemize}
+
+The use of an embedded system ensures real-time performance and efficient resource utilization.
+
+\section{Programming and Development Tools}
+
+The development of the system involves both hardware and software components. The firmware is written in embedded C using hardware abstraction libraries, which simplify interaction with the microcontroller peripherals.
+
+\subsection{Embedded Programming}
+
+Embedded C is used to implement the control logic of the system. The program is structured in a modular manner to ensure readability, maintainability, and scalability.
+
+\subsection{Development Environment}
+
+The following tools are used:
+
+\begin{itemize}
+\item STM32CubeIDE for firmware development
+\item Arduino IDE for receiver-side programming
+\end{itemize}
+
+These tools provide debugging, simulation, and code development capabilities.
+
+\section{System Integration Concept}
+
+The system operates as an integrated unit where multiple components work together in coordination. The sensor continuously monitors the environment and provides input data to the microcontroller. Based on this data, the controller makes decisions and activates the appropriate output mechanisms such as servo movement, laser activation, or communication.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/2.1.jpg}
+\caption{System block diagram of the autonomous border surveillance system}
+\label{fig:block}
+\end{figure}
+
+The integration of sensing, processing, and communication ensures that the system can operate autonomously and respond to events in real time.
 
 \section{Use of Acronyms and Glossaries}
-Acronyms are nothing but the short form of regular repeated word. Say for example, you have a repeat word "Integrated Circuits" and you want to use a short form for it as "IC". For which you have to first define the word and use it wherever you wanted to refer it.
 
-First, let's look at the definition, which has to be entered in \texttt{Glossaries.tex} under \texttt{CoverPages} directory.
-\begin{verbatim}
-%\newacronym{<Ref>}{<Short-Form>}{<Expanded word>}
-\newacronym{ic}{IC}{Integrated Circuits}
-\end{verbatim}
-In order to use the defined acronym, use the commands \verb|\gls{<Ref>}| as shown below
+Examples:
 
-As an example, call the definition with \verb|\gls{ic}| and the outcome of it is reflected as, \gls{ic}.
+\begin{itemize}
+\item \gls{ic}
+\item \gls{rc}
+\end{itemize}
 
-Note: For the First time, the expanded form appears along with the Short-form definition inside parenthesis. But when the \verb|\gls{}| is repeated, only Short-form appears inside the parenthesis.
+\section{Chapter Summary}
 
-Now, let's look at the definition of symbols. Follow the syntax to define the symbol first, inside \texttt{Glossaries.tex} under \texttt{CoverPages} directory.
-\begin{verbatim}
-%\newglossaryentry{<Ref>}{name=<Symbol>, description={<description about the symbol>}, type=<List type>}
-\newglossaryentry{rc}{name=$\tau$, description={Time constant}, type=symbolList}
-\end{verbatim}
-
-As an example, the rate of change is defined with \verb|\gls{rc}| and the outcome of it is reflected as, the rate of change is defined with \gls{rc}.
-
-\vspace{0.75cm}
-
- \textbf{The chapters should not end with figures, instead bring the paragraph explaining about the figure at the end followed by a summary paragraph.}
-
-After elaborating the various sections of the chapter (From Chapter 2 onwards), a summary paragraph should be written discussing the highlights of that particular chapter. This summary paragraph should not be numbered separately. This paragraph should connect the present chapter to the next chapter.
+This chapter provided a detailed overview of the theoretical concepts and fundamental principles required for the development of the autonomous border surveillance system. The working principles of ultrasonic sensing, servo motor control, geometric targeting, RFID identification, and LoRa communication were discussed in detail. These concepts form the foundation for the design and implementation presented in the subsequent chapters.
