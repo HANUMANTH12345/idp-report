@@ -1,21 +1,20 @@
 \addcontentsline{toc}{chapter}{Abstract}\vspace{-1cm}
+
 %Border
 \begin{tikzpicture}[remember picture, overlay]
   \draw[line width = 4pt] ($(current page.north west) + (0.75in,-0.75in)$) rectangle ($(current page.south east) + (-0.75in,0.75in)$);
 \end{tikzpicture}
 
+\begin{spacing}{1.5}
 
-Highlights of significant contributions: One page with 3 to 4 paragraphs\\
+Autonomous surveillance systems play a crucial role in modern security infrastructure, particularly in applications such as border monitoring, military surveillance, and restricted area protection. Conventional surveillance systems rely heavily on manual monitoring and are often limited by human fatigue, delayed response times, and inefficiency in covering large or remote areas. These limitations create significant security vulnerabilities. There is a growing need for intelligent systems capable of real-time detection, identification, and communication. The work presented in this report addresses these challenges by developing an autonomous border surveillance system that integrates sensing, identification, and long-range communication to achieve reliable and continuous monitoring.
 
-Paragraph 1: Importance and relevance of Topic, reported issues and limitations of the topic in performance or computation etc, issues involved in those limitations, need for addressing those issues and a short note on how that is addressed in this report.
+The primary objective of this work is to design and implement a system capable of detecting intrusions, identifying authorized personnel, and transmitting alerts in real time. The system utilizes ultrasonic sensing for distance measurement, servo motors for directional scanning, RFID technology for identification, and LoRa communication for long-range data transmission. Mathematical formulations based on time-of-flight principles and trigonometric relationships are used to compute object distance and targeting angles. Embedded control algorithms are developed using C programming to coordinate sensing, processing, and actuation, ensuring efficient and synchronized system operation.
 
+The design and implementation of the system are validated through experimental testing and analysis. The system is developed using STM32CubeIDE for embedded programming and Arduino IDE for receiver-side communication. Various test scenarios are considered, including object detection at different distances, RFID-based classification, and wireless communication reliability. 
 
-Paragraph 2: Objectives of this work, short note on algebraic methods used and formulations achieved, computational procedures developed. \gls{ic}.
+The hardware implementation of the system further validates the effectiveness of the proposed design. The integration of ultrasonic sensors, servo motors, RFID module, and LoRa communication module into a single embedded platform demonstrates the feasibility of real-time autonomous surveillance. The system successfully performs continuous monitoring, target detection, classification, and alert transmission under practical conditions. These results confirm that the proposed system provides a scalable and cost-effective solution for modern surveillance applications.
 
-
-Paragraph 3: Description of simulation procedure including SW tools used and choice of test cases. Short note on results achieved and significant highlights of improvements if any in terms of percentage , for example the architecture presented in this report shows 22 \% improve in power consumption as compared to the previously reported articles.
-\gls{ic}
-
-Paragraph 4: The last para needed only if emulation (after simulation) or Hardware developed to validate simulation results in para 3. 
+\end{spacing}
 
 \pagebreak

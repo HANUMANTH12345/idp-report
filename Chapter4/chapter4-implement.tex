@@ -6,6 +6,35 @@ The practical realization of the autonomous border surveillance system involves 
 
 The hardware implementation forms the physical backbone of the system. It consists of interconnected modules that perform sensing, actuation, processing, and communication.
 
+\begin{table}[htb]
+\centering
+\caption{Hardware components used in the surveillance system}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Component} & \textbf{Purpose} & \textbf{Quantity} \\
+\hline
+STM32 Microcontroller & Central processing and control & 1 \\
+\hline
+HC-SR04 Ultrasonic Sensor & Object detection and distance measurement & 1 \\
+\hline
+SG90 Servo Motors & Scanning and targeting mechanism & 2 \\
+\hline
+EM18 RFID Reader Module & Identification of authorized entities & 1 \\
+\hline
+RFID Tags & Authentication and access verification & 2 \\
+\hline
+SX1278 LoRa Module & Long-range wireless communication & 2 \\
+\hline
+Laser Unit & Target indication & 1 \\
+\hline
+ESP8266 Module & Receiver-side communication and webpage hosting & 1 \\
+\hline
+5 Volt DC Adapter & System power regulation & 1 \\
+\hline
+\end{tabular}
+\label{tab:hardwarecomponents}
+\end{table}
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{figure/4.1.jpg}

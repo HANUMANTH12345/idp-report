@@ -6,11 +6,24 @@ The performance of the autonomous border surveillance system is evaluated throug
 
 The system was tested under controlled conditions to evaluate its functionality and performance. The ultrasonic sensor was used to detect objects within a predefined range, and the servo motor enabled scanning across a 180-degree field.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figure/5.1.jpeg}
+\caption{Hardware prototype of the autonomous border surveillance system}
+\label{fig:hardwareprototype}
+\end{figure}
+
 During testing, it was observed that the system was able to reliably detect objects within a range of 2 cm to 30 cm. Distances below 2 cm were considered noise and were filtered out. The servo motor successfully performed continuous sweeping motion, enabling effective coverage of the environment. When an object entered the detection range, the system accurately identified its position and aligned the laser module accordingly.
 
 The RFID subsystem was tested by presenting both authorized and unauthorized tags. The system correctly classified authorized tags within a response time of approximately one second. In the absence of a valid RFID tag, the system triggered the alert mechanism, indicating the presence of an unauthorized entity.
 
-The LoRa communication module was tested for wireless alert transmission. Messages were successfully transmitted and received over a considerable distance without packet loss in indoor testing conditions. The received signal strength (RSSI) values ranged between -60 dBm and -80 dBm, indicating stable communication.
+The LoRa communication module was tested for wireless alert transmission. Messages were successfully transmitted and received over a considerable distance without packet loss in indoor testing conditions.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figure/5.2.jpeg}
+\caption{Alert notification displayed on the monitoring webpage}
+\label{fig:webalert}
+\end{figure}
 
 \section{Simulation Results}
 
@@ -31,7 +44,7 @@ The performance of the proposed system can be evaluated based on parameters such
 \hline
 Detection Range & 2 cm – 30 cm & Reliable within range \\
 \hline
-Response Time & $\sim$1 second & Includes RFID verification \\
+Response Time & $\sim$3 second & Includes RFID verification \\
 \hline
 Angular Coverage & 0° – 180° & Full sweep achieved \\
 \hline
