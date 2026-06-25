@@ -1,6 +1,6 @@
 \chapter{System Design and Implementation Methodology}
 
-The development of an autonomous surveillance system requires a systematic approach that integrates sensing, decision-making, actuation, and communication into a unified framework. The design of the proposed system is guided by performance requirements such as real-time detection, accuracy in targeting, and reliable long-range communication. This chapter elaborates on the design specifications, analytical modeling, system architecture, and implementation methodology adopted to achieve a functional and efficient surveillance system.
+The development of an intelligent solar farm inspection system requires a systematic approach that integrates drone-based data acquisition, image processing, fault detection, and monitoring into a unified framework. The design of the proposed system is guided by performance requirements such as inspection accuracy, real-time fault detection, efficient data processing, and reliable monitoring capabilities. This chapter elaborates on the design specifications, analytical modeling, system architecture, and implementation methodology adopted to achieve a functional and efficient inspection system.
 
 \section{Specifications for the Design}
 
@@ -9,19 +9,19 @@ The design of the system is driven by both functional and operational requiremen
 \subsection{Functional Requirements}
 
 \begin{itemize}
-\item The system must continuously monitor the environment within a defined angular range.
-\item It must detect objects within a specified distance threshold.
-\item The system should differentiate between authorized and unauthorized entities.
-\item It must generate alerts and communicate them wirelessly over long distances.
+\item The system must capture high-resolution RGB images of solar panels and solar farm infrastructure.
+\item It must automatically detect faults such as dust accumulation, bird droppings, physical damage, electrical damage, and snow coverage.
+\item It must classify detected defects based on severity and operational impact.
+\item It must generate reports and provide monitoring capabilities through a centralized dashboard.
 \end{itemize}
 
 \subsection{Operational Specifications}
 
 \begin{itemize}
-\item Detection range: up to 30 cm (current prototype)
-\item Angular scanning range: 0° to 180°
-\item Communication range: up to several kilometers using LoRa
-\item Power supply: regulated DC supply for embedded operation
+\item Inspection coverage: large-scale solar farm installations
+\item Camera type: RGB camera
+\item Fault detection: real-time or near real-time analysis
+\item Monitoring platform: centralized web-based dashboard
 \end{itemize}
 
 These specifications form the basis for selecting components and designing system behavior.
@@ -30,51 +30,56 @@ These specifications form the basis for selecting components and designing syste
 
 Before implementation, the system is analyzed as a combination of interacting subsystems. Each subsystem is modeled based on its input-output behavior.
 
-\subsection{Detection Model}
+\subsection{Image Acquisition Model}
 
-The ultrasonic sensor is modeled as a time-of-flight measurement system. The relationship between time and distance is given by:
+The drone-based imaging system is modeled as a data acquisition subsystem where RGB images are continuously captured and transmitted for processing.
+
+The relationship between inspection quality and captured data depends on:
 
 \[
-d = \frac{v \times t}{2}
+\text{Inspection Accuracy} \propto \text{Image Quality}
 \]
 
 where:
+
 \begin{itemize}
-\item $d$ is distance
-\item $v$ is speed of sound
-\item $t$ is echo time
+\item Image quality depends on camera resolution.
+\item Environmental conditions affect data reliability.
+\item Flight stability influences image clarity.
 \end{itemize}
 
-This model assumes constant environmental conditions and negligible noise.
+This model assumes suitable weather conditions and stable drone operation.
 
-\subsection{Actuation Model}
+\subsection{Fault Detection Model}
 
-Servo motors are modeled as position-controlled systems where the output angle is proportional to the PWM signal. The mapping between pulse width and angle is linear within the operating range.
+The fault detection subsystem is modeled using deep learning algorithms trained on annotated datasets. The model receives images as input and produces fault classifications as output.
 
-\subsection{Communication Model}
+\subsection{Monitoring Model}
 
-LoRa communication is modeled as a low-power wireless transmission system with parameters such as spreading factor, bandwidth, and coding rate affecting range and reliability.
+The monitoring platform is modeled as a centralized system responsible for storing inspection records, visualizing results, and generating maintenance recommendations.
 
 \section{System Architecture}
 
 The system architecture is modular and consists of the following primary components:
 
 \begin{itemize}
-\item Sensing Unit (Ultrasonic Sensor)
-\item Processing Unit (Microcontroller)
-\item Actuation Unit (Servo Motors)
-\item Identification Unit (RFID)
-\item Communication Unit (LoRa Module)
+\item Data Acquisition Unit (Drone with RGB Camera)
+\item Image Processing Unit
+\item Fault Detection Unit (Deep Learning Models)
+\item Database and Storage Unit
+\item Monitoring Dashboard
 \end{itemize}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{figure/3.1.jpg}
-\caption{Overall architecture of the autonomous surveillance system}
+\includegraphics[width=0.75\textwidth]{figure/3.1.png}
+\caption{Overall architecture of the solar farm inspection system}
 \label{fig:arch}
 \end{figure}
 
-Each module interacts with the central controller, forming a closed-loop system capable of autonomous operation.
+As shown in Fig.~\ref{fig:arch}, the proposed architecture consists of five major modules: image acquisition, image preprocessing, defect detection, database storage, and dashboard visualization. Images collected from the solar farm are processed through the defect detection model, and the generated results are stored and displayed through the monitoring platform.
+
+Each module interacts with the processing framework, forming an integrated system capable of intelligent inspection and monitoring.
 
 \section{Design Methodology}
 
@@ -82,72 +87,75 @@ The design methodology follows a sequential and iterative approach to ensure rel
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{figure/3.2.jpg}
-\caption{Flowchart representing system operation and decision making}
+\includegraphics[width=0.7\textwidth]{figure/3.2.png}
+\caption{Flowchart representing inspection and fault detection workflow}
 \label{fig:flow}
 \end{figure}
 
-\subsection{Step 1: Environment Scanning}
+As illustrated in Fig.~\ref{fig:flow}, the inspection process follows a structured workflow beginning with image acquisition and ending with report generation and maintenance recommendations.
 
-The ultrasonic sensor is mounted on a servo motor which sweeps across a predefined angular range. This allows continuous monitoring of the surroundings.
+\subsection{Step 1: Data Acquisition}
+
+The drone performs scheduled flights over solar farms while capturing RGB images. The collected data serves as the primary input for fault analysis.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.65\textwidth]{figure/3.3.jpg}
-\caption{Scanning mechanism using servo-mounted ultrasonic sensor}
+\includegraphics[width=0.65\textwidth]{figure/3.3.png}
+\caption{Drone-based image acquisition process}
 \label{fig:scan}
 \end{figure}
 
-\subsection{Step 2: Target Detection}
+As shown in Fig.~\ref{fig:scan}, the drone systematically captures images of solar panels from different viewpoints to ensure complete inspection coverage of the solar farm.
 
-At each angular position, the sensor measures distance. If the measured distance falls below the threshold, a potential target is detected.
+\subsection{Step 2: Fault Detection}
 
-\subsection{Step 3: Target Localization}
+Captured images are analyzed using computer vision and deep learning techniques. Defects such as dust accumulation, bird droppings, physical damage, electrical damage, and snow coverage are detected through RGB image analysis.
 
-Once a target is detected, geometric relationships are used to calculate its position relative to the system. This enables accurate alignment of the laser.
+\subsection{Step 3: Image Analysis}
 
-\subsection{Step 4: Identification}
+The acquired images are processed using preprocessing and feature extraction techniques to enhance defect visibility and improve classification performance.
 
-RFID technology is used to determine whether the detected entity is authorized. This step is crucial for avoiding false alarms.
+\subsection{Step 4: Fault Classification}
 
-\subsection{Step 5: Response Generation}
+Detected faults are categorized according to severity levels. This classification assists maintenance teams in prioritizing corrective actions.
 
-If the entity is unauthorized, the system activates the alert mechanism and transmits the information using LoRa communication.
+\subsection{Step 5: Report Generation}
+
+Inspection results are stored in the database and displayed on the monitoring dashboard. Reports and alerts are generated automatically for maintenance personnel.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{figure/3.4.jpg}
-\caption{Target detection and decision-making process}
+\includegraphics[width=0.7\textwidth]{figure/3.4.png}
+\caption{Fault detection and decision-making process}
 \label{fig:decision}
 \end{figure}
 
+Fig.~\ref{fig:decision} illustrates the decision-making process adopted by the system. Based on the detected defect type and confidence score generated by the model, faults are classified and corresponding recommendations are generated for maintenance planning.
+
 \section{Design Equations}
 
-The mathematical formulation plays a crucial role in ensuring accurate targeting.
+Mathematical analysis plays an important role in image processing and inspection planning.
 
-\subsection{Distance Calculation}
-
-\[
-\text{Distance (cm)} = \text{Time} \times 0.017
-\]
-
-\subsection{Geometric Targeting}
-
-Using the cosine rule:
+\subsection{Inspection Coverage Estimation}
 
 \[
-b = \sqrt{a^2 + c^2 - 2ac \cos(\theta)}
+\text{Coverage} = \text{Flight Width} \times \text{Flight Distance}
 \]
+
+This equation helps estimate the area covered during a drone inspection mission.
+
+\subsection{Fault Detection Accuracy}
 
 \[
-\cos(B) = \frac{a^2 + b^2 - c^2}{2ab}
+\text{Accuracy} =
+\frac{\text{Correct Predictions}}
+{\text{Total Predictions}}
+\times 100
 \]
 
-\[
-B = \cos^{-1}(\cdot)
-\]
+This metric is used to evaluate the performance of the fault detection model.
 
-These equations are used to compute the required angle for precise alignment of the targeting mechanism.
+These equations assist in evaluating system efficiency and performance.
 
 \section{Experimental Techniques}
 
@@ -155,42 +163,43 @@ The system implementation involves several experimental techniques to ensure acc
 
 \subsection{Calibration}
 
-Sensors and actuators are calibrated to ensure accurate measurements and positioning.
+The RGB camera is calibrated to ensure accurate image acquisition and consistent visual inspection results.
 
 \subsection{Noise Reduction}
 
-Filtering techniques are applied to eliminate erroneous sensor readings.
+Image enhancement and filtering techniques are applied to improve image quality and reduce unwanted noise.
 
-\subsection{Timing Optimization}
+\subsection{Model Optimization}
 
-Precise timing control is implemented using hardware timers to ensure accurate measurements.
+Deep learning models are optimized using training, validation, and testing datasets to maximize fault detection performance.
 
 \section{System Integration Strategy}
 
-Integration of multiple modules is achieved through synchronized operation controlled by the microcontroller.
+Integration of multiple modules is achieved through coordinated operation between software components.
 
 \begin{itemize}
-\item Sensor provides input data
-\item Controller processes data
-\item Actuator performs movement
-\item Communication module transmits alerts
+\item Drone captures inspection data.
+\item Processing unit analyzes images.
+\item AI model detects faults.
+\item Dashboard visualizes results and reports.
 \end{itemize}
 
-This coordinated operation ensures seamless functioning of the system.
+This coordinated operation ensures seamless functioning of the inspection system.
 
 \section{Implementation Considerations}
 
 Several practical considerations are taken into account:
 
 \begin{itemize}
-\item Power consumption optimization
-\item Hardware limitations
-\item Real-time constraints
-\item Environmental factors
+\item Environmental and weather conditions
+\item Drone flight limitations
+\item Image quality requirements
+\item Computational resource availability
 \end{itemize}
 
 These factors influence the design and performance of the system.
 
 \section{Chapter Summary}
 
-This chapter presented the detailed design methodology and analytical foundation of the autonomous border surveillance system. The specifications, system modeling, architectural design, and mathematical formulations were discussed to provide a comprehensive understanding of the system implementation. The next chapter focuses on the practical implementation and results obtained from the developed system.
+This chapter presented the detailed design methodology and analytical foundation of the Visual Inspection of Solar Farm system. The specifications, system modeling, architectural design, and implementation methodology were discussed to provide a comprehensive understanding of the system implementation. The next chapter focuses on the practical implementation and results obtained from the developed system.
+

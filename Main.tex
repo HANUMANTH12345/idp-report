@@ -1,13 +1,14 @@
 \documentclass[12pt,oneside,a4paper]{book} % This style for A4 format.
 
 \input{./AuxFiles/Packages}
+\setlength{\headheight}{16pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Document settings
-\title{Autonomous Border Surveillance System}
+\title{Visual Inspection of Solar Farm}
 \subCode{AI367P}
 % Note: While using the template for IDP, the \Department cmd is not used (discarded automatically) in IDP. The Certificate page uses \guideDeptA[]{} cmd in IDP.
-\Department[AIML]{Artificial Intelligence and Machine Learning}
+\Department[AIML]{Artificial Intelligence and Machine Learning }
 \academicYear{2025-26}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,27 +42,27 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Student Details%%%
-\stuNameA{N Mohammed Akhil}
-\stuUSNA{1RV23AI061}
+\stuNameA{Abhishek H G}
+\stuUSNA{1RV24CS400}
 \stuNameB{B Hanumanth}
 \stuUSNB{1RV23CS060}
-\stuNameC{K V Sai Charan}
-\stuUSNC{1RV23EC063}
-\stuNameD{Tanmay Sharad Joshi}
-\stuUSND{1RV23EC166}
+\stuNameC{B G Koushik}
+\stuUSNC{1RV24CS403}
+\stuNameD{Bheemaraj D }
+\stuUSND{1RV23AI026}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Guide Related commands
 %% Internal Guide %%
 % Have to give both short form and long of Department Name
-\guideNameA{Dr. K Vishwavardhan Reddy}
-\guideDesignationA{Assistant Professor}
-\guideDeptA[AIML]{Artificial Intelligence and Machine Learning}
+\guideNameA{Dr Narasimha Swamy S}
+\guideDesignationA{Associate Professor}
+\guideDeptA[AIML]{Artificial Intelligence and Machine Learning }
 \guideOrgA{RV College of Engineering}
 
 %% External Guides (Don't Use for Internship; U have '\projectCoOrdNameA{}' for Internship) %%
-\guideNameB{Dr. Arulalan Rajan}
-\guideDesignationB{Professor}
+\guideNameB{Dr Narasimha Swamy S}
+\guideDesignationB{Associate  Professor}
 \guideDeptB{Dept. of AIML}
 \guideOrgB{RV College of Engineering}
 
@@ -73,12 +74,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Esteem members related commands
 %% Pannel Members %%
-\panelMemberNameA{Dr. Arulalan Rajan}
-\panelMemberDesigA{Professor}
-\panelMemberDeptA[AIML]{Artificial Intelligence and Machine Learning}
-\panelMemberNameB{Prof. Rajesh R M}
-\panelMemberDesigB{Assistant Professor}
-\panelMemberDeptB[AIML]{Artificial Intelligence and Machine Learning}
+\panelMemberNameA{Dr Narasimha Swamy S}
+\panelMemberDesigA{Associate  Professor}
+\panelMemberDeptA[AIML]{Artificial Intelligence and Machine Learning }
+\panelMemberNameB{Dr Narasimha Swamy S}
+\panelMemberDesigB{Associate  Professor}
+\panelMemberDeptB[AIML]{Artificial Intelligence and Machine Learning }
 
 % Added Ver 3.6 & 3.9
 %% Project co-ordinators (for Internal RVCE) & Internship co-ordinators (for COE as well as Internship company Manager or Supervisor)
@@ -99,14 +100,14 @@
 \internCoOrdDeptA[ECE]{Electronics and Communication Engineering}
 
 %%%%%%%%%%%%%%%%% Esteemed Members %%%%%%%%%%%%%%%%%%
-\HOD{Dr. B. Sathish Babu}
+\HOD{Dr. Deepamala N }
 \Principal{Dr. K. N. Subramanya}
 % For IDP only
 \DeanAcademics{Dr. M.V. Renukadevi}
 \VicePrincipal{Dr. K S Geetha}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%  QRL %%%%%%%%%%%%%%%%%%%%%%%%%%
-\QRurl{https://drive.google.com/file/d/1z53hD-r-LGR2_WYI6WNmN0z91Tl_Yjh1/view?usp=sharing}
+\QRurl{https://drive.google.com/drive/folders/1KjfoaKe47uVfK3AUAEQ2kwCNXZQfm9cZ}
 %\QRurl{https://drive.google.com/open?id=1jm-POmuq-ZZ1tT5m-xAdCDRnwvLZH8q-}
 
 %%%%%%%%%%%%%%%%%%Draft report%%%%%%%%%%%%%%%%%%
@@ -122,9 +123,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%% Bibliography %%%%%%%%%%%%%%%%%%%%%
-\usepackage[backend=bibtex,style=ieee]{biblatex}
+%\usepackage[backend=bibtex,style=ieee]{biblatex}
 % If backend is set to bibtex, then configure texmaker Bi(La)Tex with "bibtex %"
-\addbibresource{./AuxFiles/ProjectBib.bib}%Add bib file with extention
+%\addbibresource{./AuxFiles/ProjectBib.bib}%Add bib file with extention
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%WaterMark%%%%%%%%%%%%%%%%%%%%%
@@ -234,6 +235,13 @@
 \else
 \input{./Chapter6/chapter6-conclution}
 \fi
+
+%Chapter 
+\ifINT
+\else
+\input{./Chapter7/chapter7-referances}
+\fi
+
 
 %% Uncomment the following 2 commands to add Appendix chapters
 %%\appendix

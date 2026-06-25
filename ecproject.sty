@@ -307,7 +307,7 @@
 {\huge\bfseries\@title\unskip\strut\par \global\titlelines=\the\prevgraf}% To count the number of lines used in the title - to adjust the spacing of title page
 \setcounter{numtitlelines}{\the\titlelines}
 \ifIDP\vspace{1cm}\else\ifGuideNameCUsed\vspace{0.5cm}\fi\fi
-{\Large\itshape \ifINT \vspace{0.5cm} An Internship \else\ifMinor A Minor Project \else \ifDTL A Design Thinking Lab \else \ifIDP An Interdisciplinary Project \else A Major Project \fi\fi\fi\fi  Report\;(\@subCode)\unskip\strut\par}
+{\Large\itshape \ifINT \vspace{0.5cm} An Internship \else\ifMinor A Minor Project \else \ifDTL A Design Thinking Lab \else \ifIDP Main EL Project \else A Major Project \fi\fi\fi\fi  Report\;\unskip\strut\par}
 % \fi
 \vspace{0.25cm}
 {\Large\bfseries \vspace{0.5cm} Submitted by,\unskip\strut\par}
@@ -512,7 +512,7 @@
     \fancyfoot[C] {\@mastersInSF\, in \@PGprgName, Department of \@departmentSF,\space\@acadYear}%
     \fancyfoot[R] {}%
     \else
-    \fancyfoot[L] {\ifMinor UG Minor Project \else \ifIDP Interdisciplinary Project \else \ifDTL Design Thinking Lab \else \ifINT UG Internship \else UG Major Project \fi\fi\fi\fi  Report}%
+    \fancyfoot[L] {\ifMinor UG Minor Project \else \ifIDP Experiential Learning  \else \ifDTL Design Thinking Lab \else \ifINT UG Internship \else UG Major Project \fi\fi\fi\fi  Report}%
     \fancyfoot[C] {\ifIDP \else Department of \@departmentSF\fi}%
     \fancyfoot[R] {\@acadYear}%
     \fi
